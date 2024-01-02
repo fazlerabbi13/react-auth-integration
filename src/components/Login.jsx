@@ -1,11 +1,25 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../provider/authProvider";
+import { debugErrorMap } from "firebase/auth";
 
 const Login = () => {
+
+    const {signInUser} = useContext(AuthContext)
+
     const handleRegister = e => {
         e.preventDefault();
         const email = e.target.email.value;
         const password = e.target.password.value;
-        console.log(email, password)
+        console.log(email, password);
+
+        signInUser(email,password)
+        .then(result =>{
+            console.log(result.user);
+        })
+        .catch(error =>{
+            console.error(error);
+        })
     }
     return (
         <div className="hero min-h-screen bg-base-200">
